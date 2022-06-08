@@ -3,22 +3,40 @@ package gr.aytn.taskapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.MenuItem
+
+import androidx.annotation.NonNull
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+
 
 class MainActivity : AppCompatActivity() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var names : ArrayList<String> = arrayListOf("UltraBoost19","Clear Shampoo","FairPrice Clementi","Supersonic","iPad Pro Cover")
-        var dates : ArrayList<String> = arrayListOf("Sun, 5 Jan","Sat, 4 Jan","Fri, 3 Jan","Thu, 2 Jan","Wed, 1 Jan")
-        var amounts : ArrayList<Int> = arrayListOf(25345,25452,5788,987,3242)
 
+        var names: ArrayList<String> = arrayListOf(
+            "UltraBoost19",
+            "Clear Shampoo",
+            "FairPrice Clementi",
+            "Supersonic",
+            "iPad Pro Cover"
+        )
+        var dates: ArrayList<String> =
+            arrayListOf("Sun, 5 Jan", "Sat, 4 Jan", "Fri, 3 Jan", "Thu, 2 Jan", "Wed, 1 Jan")
+        var amounts: ArrayList<Int> = arrayListOf(25345, 25452, 5788, 987, 3242)
 
 
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
@@ -32,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         // This loop will create 20 Views containing
         // the image with the count of view
         for (i in 0..4) {
-            data.add(Item(R.drawable.icon, names[i],dates[i],amounts[i]))
+            data.add(Item(R.drawable.icon, names[i], dates[i], amounts[i]))
         }
 
         // This will pass the ArrayList to our Adapter
@@ -42,20 +60,18 @@ class MainActivity : AppCompatActivity() {
         recyclerview.adapter = adapter
 
 
-
-
-        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         bottomNavigationView.selectedItemId = R.id.home
 
-        bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item->
+        bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item ->
             when (item.itemId) {
                 R.id.profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.home-> return@OnNavigationItemSelectedListener true
+                R.id.home -> return@OnNavigationItemSelectedListener true
 
                 R.id.settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
@@ -65,6 +81,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
-
     }
+
 }
